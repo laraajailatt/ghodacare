@@ -3,13 +3,11 @@ import '../constants/app_constants.dart';
 import '../utils/shared_pref_util.dart';
 import 'dart:async';
 import '../models/infermedica_models.dart';
-import 'mock_api_service.dart';
 
 class ApiService {
   final Dio _dio = Dio();
   final Dio _infermedicaDio = Dio();
   final String baseUrl = AppConstants.baseUrl;
-  final bool _useMockData = AppConstants.kUseMockData;
 
   ApiService() {
     // Setup for your app's backend API
@@ -126,10 +124,6 @@ class ApiService {
 
   // Get user symptoms
   Future<List<dynamic>> getSymptoms() async {
-    if (_useMockData) {
-      return MockApiService.getSymptoms();
-    }
-    
     try {
       final response = await _dio.get('/symptoms');
       return response.data['data'] ?? [];
@@ -150,11 +144,15 @@ class ApiService {
 
   // Add a new symptom
   Future<Map<String, dynamic>> addSymptom(Map<String, dynamic> symptomData) async {
-    // Always use mock data for now
-    return MockApiService.addSymptom(symptomData);
+    try {
+      final response = await _dio.post('/symptoms', data: symptomData);
+      return response.data;
+    } on DioException catch (e) {
+      return _handleError(e);
+    }
   }
 
-  // Update a symptom
+  // Update symptom
   Future<Map<String, dynamic>> updateSymptom(String symptomId, Map<String, dynamic> symptomData) async {
     try {
       final response = await _dio.put('/symptoms/$symptomId', data: symptomData);
@@ -166,18 +164,18 @@ class ApiService {
 
   // Delete a symptom
   Future<Map<String, dynamic>> deleteSymptom(String symptomId) async {
-    // Always use mock data for now
-    return MockApiService.deleteSymptom(symptomId);
+    try {
+      final response = await _dio.delete('/symptoms/$symptomId');
+      return response.data;
+    } on DioException catch (e) {
+      return _handleError(e);
+    }
   }
 
   // Bloodwork Tracking APIs
 
   // Get user bloodwork
   Future<List<dynamic>> getBloodworks() async {
-    if (_useMockData) {
-      return MockApiService.getBloodworks();
-    }
-    
     try {
       final response = await _dio.get('/bloodwork');
       return response.data['data'] ?? [];
@@ -198,10 +196,6 @@ class ApiService {
 
   // Add new bloodwork
   Future<Map<String, dynamic>> addBloodwork(Map<String, dynamic> bloodworkData) async {
-    if (_useMockData) {
-      return MockApiService.addBloodwork(bloodworkData);
-    }
-    
     try {
       final response = await _dio.post('/bloodwork', data: bloodworkData);
       return response.data;
@@ -222,10 +216,6 @@ class ApiService {
 
   // Delete bloodwork
   Future<Map<String, dynamic>> deleteBloodwork(String bloodworkId) async {
-    if (_useMockData) {
-      return MockApiService.deleteBloodwork(bloodworkId);
-    }
-    
     try {
       final response = await _dio.delete('/bloodwork/$bloodworkId');
       return response.data;
@@ -249,8 +239,13 @@ class ApiService {
 
   // Get info about available symptoms
   Future<List<InfermedicaSymptom>> getInfermedicaSymptoms({String language = 'en'}) async {
-    // Always use mock data for now
-    return MockApiService.getInfermedicaSymptoms();
+    try {
+      final response = await _infermedicaDio.get('/symptoms?language=$language');
+      final List<dynamic> data = response.data;
+      return data.map((json) => InfermedicaSymptom.fromJson(json)).toList();
+    } on DioException catch (e) {
+      throw _handleError(e);
+    }
   }
 
   // Get risk factors
@@ -345,6 +340,16 @@ class ApiService {
   Future<Map<String, dynamic>> addMedication(Map<String, dynamic> medicationData) async {
     try {
       final response = await _dio.post('/medications', data: medicationData);
+      return response.data;
+    } on DioException catch (e) {
+      return _handleError(e);
+    }
+  }
+
+  // Get wellness categories
+  Future<Map<String, dynamic>> getWellnessCategories() async {
+    try {
+      final response = await _dio.get('/wellness-categories');
       return response.data;
     } on DioException catch (e) {
       return _handleError(e);

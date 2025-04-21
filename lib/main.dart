@@ -11,9 +11,11 @@ import 'package:app_ghoda/screens/bloodwork/bloodwork_detail_screen.dart';
 import 'package:app_ghoda/utils/shared_pref_util.dart';
 import 'package:app_ghoda/providers/theme_provider.dart';
 import 'package:app_ghoda/providers/language_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

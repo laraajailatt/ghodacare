@@ -36,58 +36,9 @@ class _DashboardTabState extends State<DashboardTab> with SingleTickerProviderSt
     });
 
     try {
-      // Dummy symptoms data
-      _symptoms = [
-        {
-          'date': '2024-03-15',
-          'description': 'Fatigue and tiredness',
-          'severity': 'Moderate',
-          'duration': '2 days',
-          'notes': 'Felt more tired than usual, especially in the afternoon'
-        },
-        {
-          'date': '2024-03-10',
-          'description': 'Weight gain',
-          'severity': 'Mild',
-          'duration': '1 week',
-          'notes': 'Gained 2kg over the past week'
-        },
-        {
-          'date': '2024-03-05',
-          'description': 'Cold sensitivity',
-          'severity': 'Severe',
-          'duration': '3 days',
-          'notes': 'Feeling extremely cold even in warm weather'
-        }
-      ];
-
-      // Dummy bloodwork data
-      _bloodworkHistory = [
-        {
-          'date': '2024-03-15',
-          'tests': [
-            {'name': 'TSH', 'value': '2.5', 'unit': 'mIU/L'},
-            {'name': 'Free T4', 'value': '1.2', 'unit': 'ng/dL'},
-            {'name': 'Free T3', 'value': '3.2', 'unit': 'pg/mL'}
-          ]
-        },
-        {
-          'date': '2024-02-15',
-          'tests': [
-            {'name': 'TSH', 'value': '3.8', 'unit': 'mIU/L'},
-            {'name': 'Free T4', 'value': '1.0', 'unit': 'ng/dL'},
-            {'name': 'Free T3', 'value': '2.8', 'unit': 'pg/mL'}
-          ]
-        },
-        {
-          'date': '2024-01-15',
-          'tests': [
-            {'name': 'TSH', 'value': '4.5', 'unit': 'mIU/L'},
-            {'name': 'Free T4', 'value': '0.9', 'unit': 'ng/dL'},
-            {'name': 'Free T3', 'value': '2.5', 'unit': 'pg/mL'}
-          ]
-        }
-      ];
+      // Load data from API service
+      _symptoms = await _apiService.getSymptoms();
+      _bloodworkHistory = await _apiService.getBloodworks();
       
       setState(() {
         _isLoading = false;

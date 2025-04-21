@@ -106,13 +106,17 @@ class _WellnessTabState extends State<WellnessTab> {
 
   Future<void> _fetchWellnessData() async {
     try {
-      // In a real app, this would be an API call
-      // For now, we'll simulate it with a delay
-      await Future.delayed(const Duration(milliseconds: 800));
+      // Load wellness categories from API
+      final response = await _apiService.getWellnessCategories();
       
-      // Initialize with default categories for now
-      // In a real app, this data would come from a server
-      _initializeDefaultCategories();
+      if (response != null && response['success'] == true && response['data'] != null) {
+        // Parse categories from API response
+        final categoriesData = response['data']['categories'] as List<dynamic>;
+        _categories = categoriesData.map((data) => WellnessCategory.fromJson(data)).toList();
+      } else {
+        // If API returns empty data, keep categories empty
+        _categories = [];
+      }
       
       // Save to cache for offline use
       _saveToCache();
@@ -122,84 +126,8 @@ class _WellnessTabState extends State<WellnessTab> {
   }
 
   void _initializeDefaultCategories() {
-    _categories = [
-      WellnessCategory(
-        title: 'Nutrition',
-        icon: Icons.restaurant,
-        color: const Color(0xFF8A70BE),
-        tips: [
-          WellnessTip(
-            title: 'Foods Rich in Iodine',
-            content: 'Include seaweed, dairy products, iodized salt, and seafood in your diet to ensure adequate iodine, which is essential for thyroid function.',
-          ),
-          WellnessTip(
-            title: 'Selenium-Rich Foods',
-            content: 'Brazil nuts, sunflower seeds, fish, and eggs are excellent sources of selenium, which helps in the production of thyroid hormones.',
-          ),
-          WellnessTip(
-            title: 'Limit Goitrogenic Foods',
-            content: 'Consume cruciferous vegetables like broccoli, cauliflower, and cabbage in moderation, especially if you have hypothyroidism, as they can interfere with thyroid function when eaten raw in large amounts.',
-          ),
-        ],
-      ),
-      WellnessCategory(
-        title: 'Exercise',
-        icon: Icons.fitness_center,
-        color: const Color(0xFF61C8B9),
-        tips: [
-          WellnessTip(
-            title: 'Low-Impact Cardio',
-            content: 'Walking, swimming, and cycling are excellent low-impact exercises that can help boost metabolism and energy levels without putting excessive stress on your body.',
-          ),
-          WellnessTip(
-            title: 'Strength Training',
-            content: 'Incorporate light weights and resistance exercises 2-3 times per week to help maintain muscle mass and bone density, which can be affected by thyroid conditions.',
-          ),
-          WellnessTip(
-            title: 'Yoga for Thyroid Health',
-            content: 'Certain yoga poses like the shoulder stand, fish pose, and bridge pose can stimulate the thyroid gland and improve its function.',
-          ),
-        ],
-      ),
-      WellnessCategory(
-        title: 'Stress',
-        icon: Icons.spa,
-        color: const Color(0xFFFFB74D),
-        tips: [
-          WellnessTip(
-            title: 'Meditation Practice',
-            content: 'Regular meditation can help reduce stress hormones that may interfere with thyroid function. Start with just 5 minutes daily and gradually increase.',
-          ),
-          WellnessTip(
-            title: 'Quality Sleep',
-            content: 'Aim for 7-9 hours of uninterrupted sleep each night. Poor sleep can affect thyroid hormone production and exacerbate symptoms.',
-          ),
-          WellnessTip(
-            title: 'Deep Breathing Exercises',
-            content: 'Practice deep breathing for 5-10 minutes daily to activate the parasympathetic nervous system and reduce stress levels.',
-          ),
-        ],
-      ),
-      WellnessCategory(
-        title: 'Medication',
-        icon: Icons.medical_services,
-        color: const Color(0xFF64B5F6),
-        tips: [
-          WellnessTip(
-            title: 'Consistent Timing',
-            content: 'Take thyroid medication at the same time each day, preferably in the morning on an empty stomach, for optimal absorption.',
-          ),
-          WellnessTip(
-            title: 'Medication Interactions',
-            content: 'Wait at least 4 hours before taking calcium or iron supplements, as they can interfere with thyroid medication absorption.',
-          ),
-          WellnessTip(
-            title: 'Regular Monitoring',
-            content: 'Keep up with blood tests as recommended by your healthcare provider to ensure your medication dosage remains appropriate.',
-          ),
-        ],
-      ),
-    ];
+    // No default categories - will be populated from Firebase
+    _categories = [];
   }
 
   Future<void> _saveToCache() async {
