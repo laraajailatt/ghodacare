@@ -9,7 +9,7 @@ class InfermedicaCondition {
   final String? category;
   final String? severity;
   final String? prevalence;
-  
+
   InfermedicaCondition({
     required this.id,
     required this.name,
@@ -20,7 +20,7 @@ class InfermedicaCondition {
     this.severity,
     this.prevalence,
   });
-  
+
   factory InfermedicaCondition.fromJson(Map<String, dynamic> json) {
     return InfermedicaCondition(
       id: json['id'] ?? '',
@@ -33,7 +33,7 @@ class InfermedicaCondition {
       prevalence: json['prevalence'],
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -55,7 +55,7 @@ class InfermedicaSymptom {
   final String? category;
   final bool? hasCategoryRarity;
   final double? seriousness;
-  
+
   InfermedicaSymptom({
     required this.id,
     required this.name,
@@ -64,7 +64,7 @@ class InfermedicaSymptom {
     this.hasCategoryRarity,
     this.seriousness,
   });
-  
+
   factory InfermedicaSymptom.fromJson(Map<String, dynamic> json) {
     return InfermedicaSymptom(
       id: json['id'] ?? '',
@@ -75,7 +75,7 @@ class InfermedicaSymptom {
       seriousness: json['seriousness']?.toDouble(),
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -92,13 +92,13 @@ class InfermedicaRiskFactor {
   final String id;
   final String name;
   final String question;
-  
+
   InfermedicaRiskFactor({
     required this.id,
     required this.name,
     required this.question,
   });
-  
+
   factory InfermedicaRiskFactor.fromJson(Map<String, dynamic> json) {
     return InfermedicaRiskFactor(
       id: json['id'] ?? '',
@@ -106,7 +106,7 @@ class InfermedicaRiskFactor {
       question: json['question'] ?? '',
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -121,22 +121,21 @@ class InfermedicaQuestion {
   final String text;
   final List<InfermedicaItem> items;
   final List<String>? extras;
-  
+
   InfermedicaQuestion({
     required this.type,
     required this.text,
     required this.items,
     this.extras,
   });
-  
+
   factory InfermedicaQuestion.fromJson(Map<String, dynamic> json) {
     List<InfermedicaItem> items = [];
     if (json['items'] != null) {
       items = List<InfermedicaItem>.from(
-        json['items'].map((item) => InfermedicaItem.fromJson(item))
-      );
+          json['items'].map((item) => InfermedicaItem.fromJson(item)));
     }
-    
+
     return InfermedicaQuestion(
       type: json['type'] ?? '',
       text: json['text'] ?? '',
@@ -144,7 +143,7 @@ class InfermedicaQuestion {
       extras: json['extras'] != null ? List<String>.from(json['extras']) : null,
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'type': type,
@@ -159,38 +158,37 @@ class InfermedicaItem {
   final String id;
   final String name;
   final List<InfermedicaChoice>? choices;
-  
+
   InfermedicaItem({
     required this.id,
     required this.name,
     this.choices,
   });
-  
+
   factory InfermedicaItem.fromJson(Map<String, dynamic> json) {
     List<InfermedicaChoice>? choices;
     if (json['choices'] != null) {
       choices = List<InfermedicaChoice>.from(
-        json['choices'].map((choice) => InfermedicaChoice.fromJson(choice))
-      );
+          json['choices'].map((choice) => InfermedicaChoice.fromJson(choice)));
     }
-    
+
     return InfermedicaItem(
       id: json['id'] ?? '',
       name: json['name'] ?? '',
       choices: choices,
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = {
       'id': id,
       'name': name,
     };
-    
+
     if (choices != null) {
       json['choices'] = choices!.map((e) => e.toJson()).toList();
     }
-    
+
     return json;
   }
 }
@@ -198,19 +196,19 @@ class InfermedicaItem {
 class InfermedicaChoice {
   final String id;
   final String label;
-  
+
   InfermedicaChoice({
     required this.id,
     required this.label,
   });
-  
+
   factory InfermedicaChoice.fromJson(Map<String, dynamic> json) {
     return InfermedicaChoice(
       id: json['id'] ?? '',
       label: json['label'] ?? '',
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -224,14 +222,14 @@ class InfermedicaEvidence {
   final String choiceId;
   final bool present;
   final String? source;
-  
+
   InfermedicaEvidence({
     required this.id,
     required this.choiceId,
     required this.present,
     this.source,
   });
-  
+
   factory InfermedicaEvidence.fromJson(Map<String, dynamic> json) {
     return InfermedicaEvidence(
       id: json['id'] ?? '',
@@ -240,7 +238,7 @@ class InfermedicaEvidence {
       source: json['source'],
     );
   }
-  
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -256,14 +254,14 @@ class InfermedicaDiagnosisRequest {
   final int age;
   final List<Map<String, dynamic>> symptoms;
   final List<String>? riskFactors;
-  
+
   InfermedicaDiagnosisRequest({
     required this.sex,
     required this.age,
     required this.symptoms,
     this.riskFactors,
   });
-  
+
   Map<String, dynamic> toJson() {
     return {
       'sex': sex,
@@ -296,4 +294,4 @@ class InfermedicaDiagnosisResponse {
       conditions: conditionsList,
     );
   }
-} 
+}

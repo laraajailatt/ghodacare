@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:app_ghoda/constants/app_constants.dart';
-import 'package:app_ghoda/api/api_service.dart';
-import 'package:app_ghoda/models/bloodwork_model.dart';
+import 'package:ghodacare/constants/app_constants.dart';
+import 'package:ghodacare/api/api_service.dart';
+import 'package:ghodacare/models/bloodwork_model.dart';
 import 'package:intl/intl.dart';
 
 class BloodworkDetailScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
 
     try {
       final data = await _apiService.getBloodworkById(widget.bloodworkId);
-      
+
       setState(() {
         _bloodwork = BloodworkModel.fromJson(data);
         _isLoading = false;
@@ -57,7 +57,7 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
 
     try {
       final response = await _apiService.deleteBloodwork(widget.bloodworkId);
-      
+
       setState(() {
         _isDeleting = false;
       });
@@ -71,7 +71,7 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
             backgroundColor: Colors.green,
           ),
         );
-        
+
         Navigator.of(context).pop(true); // Return true to reload list
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -87,7 +87,7 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
       });
 
       if (!mounted) return;
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to delete bloodwork: ${e.toString()}'),
@@ -206,7 +206,8 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
           const SizedBox(height: 24),
           if (_bloodwork!.notes != null && _bloodwork!.notes!.isNotEmpty)
             _buildNotes(),
-          if (_bloodwork!.aiAnalysis != null && _bloodwork!.aiAnalysis!.isNotEmpty)
+          if (_bloodwork!.aiAnalysis != null &&
+              _bloodwork!.aiAnalysis!.isNotEmpty)
             _buildAIAnalysis(),
         ],
       ),
@@ -216,7 +217,7 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
   Widget _buildHeader() {
     final abnormalValues = _bloodwork!.getAbnormalThyroidValues();
     final hasAbnormalValues = abnormalValues.isNotEmpty;
-    
+
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -328,7 +329,7 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
       'tg': 'Thyroglobulin',
       'tsi': 'TSI (Thyroid Stimulating Immunoglobulin)',
     };
-    
+
     final testUnits = {
       'tsh': 'mIU/L',
       'ft4': 'ng/dL',
@@ -342,18 +343,18 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
 
     // Get reference ranges
     final referenceRanges = BloodworkModel.referenceRanges;
-    
+
     // Add test items for the values that are present
     _bloodwork!.thyroidValues.forEach((key, value) {
       final name = testNames[key] ?? key;
       final unit = testUnits[key] ?? '';
       final isAbnormal = _bloodwork!.isValueAbnormal(key);
-      
+
       // Get the reference range min and max values
       final range = referenceRanges[key];
       final min = range?['min'].toString() ?? '?';
       final max = range?['max'].toString() ?? '?';
-      
+
       items.add(
         Padding(
           padding: const EdgeInsets.only(bottom: 16),
@@ -374,7 +375,8 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
                     'Result: $value $unit',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: isAbnormal ? AppConstants.errorColor : Colors.black,
+                      color:
+                          isAbnormal ? AppConstants.errorColor : Colors.black,
                     ),
                   ),
                   Text(
@@ -403,7 +405,7 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
         ),
       );
     });
-    
+
     if (items.isEmpty) {
       items.add(
         const Text(
@@ -415,7 +417,7 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
         ),
       );
     }
-    
+
     return items;
   }
 
@@ -485,4 +487,4 @@ class _BloodworkDetailScreenState extends State<BloodworkDetailScreen> {
       ),
     );
   }
-} 
+}

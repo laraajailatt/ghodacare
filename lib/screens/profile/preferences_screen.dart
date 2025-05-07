@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:app_ghoda/constants/app_constants.dart';
-import 'package:app_ghoda/providers/theme_provider.dart';
+import 'package:ghodacare/constants/app_constants.dart';
+import 'package:ghodacare/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:ghodacare/providers/language_provider.dart';
 
 class PreferencesScreen extends StatefulWidget {
   const PreferencesScreen({super.key});
@@ -13,314 +14,164 @@ class PreferencesScreen extends StatefulWidget {
 class _PreferencesScreenState extends State<PreferencesScreen> {
   bool _notificationsEnabled = true;
   bool _useMetricSystem = true;
-  String _selectedLanguage = 'English';
   bool _autoUploadData = true;
-
-  final List<String> _availableLanguages = [
-    'English',
-    'Spanish',
-    'French',
-    'Hindi',
-  ];
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    
+    final languageProvider = Provider.of<LanguageProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Preferences'),
-        elevation: 0,
+        title: Text(languageProvider.get('preferences')),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSectionHeader('Appearance'),
-              _buildThemeToggle(themeProvider),
-              const SizedBox(height: 24),
-              
-              _buildSectionHeader('Language'),
-              _buildLanguageDropdown(),
-              const SizedBox(height: 24),
-              
-              _buildSectionHeader('Units'),
-              _buildUnitToggle(),
-              const SizedBox(height: 24),
-              
-              _buildSectionHeader('Notifications'),
-              _buildNotificationToggle(),
-              const SizedBox(height: 24),
-              
-              _buildSectionHeader('Privacy & Data'),
-              _buildPrivacySettings(),
-              const SizedBox(height: 24),
-              
-              _buildSectionHeader('About'),
-              _buildAboutSection(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: AppConstants.primaryColor,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildThemeToggle(ThemeProvider themeProvider) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: SwitchListTile(
-        title: const Text('Dark Mode'),
-        subtitle: const Text('Use dark theme throughout the app'),
-        value: themeProvider.isDarkMode,
-        onChanged: (value) {
-          themeProvider.setDarkMode(value);
-        },
-        secondary: Icon(
-          themeProvider.isDarkMode ? Icons.dark_mode : Icons.light_mode,
-          color: AppConstants.primaryColor,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLanguageDropdown() {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Select Language',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 8),
-            DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
-              value: _selectedLanguage,
-              items: _availableLanguages.map((language) {
-                return DropdownMenuItem(
-                  value: language,
-                  child: Text(language),
-                );
-              }).toList(),
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() {
-                    _selectedLanguage = value;
-                  });
-                }
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildUnitToggle() {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: SwitchListTile(
-        title: const Text('Use Metric System'),
-        subtitle: Text(
-          _useMetricSystem 
-              ? 'Using kilograms, centimeters' 
-              : 'Using pounds, inches'
-        ),
-        value: _useMetricSystem,
-        onChanged: (value) {
-          setState(() {
-            _useMetricSystem = value;
-          });
-        },
-        secondary: Icon(
-          Icons.straighten,
-          color: AppConstants.primaryColor,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNotificationToggle() {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
         children: [
+          // Language Section
+          _buildSectionTitle(context, languageProvider.get('language')),
+          RadioListTile<bool>(
+            title: const Text('English'),
+            value: true,
+            groupValue: languageProvider.isEnglish,
+            onChanged: (bool? value) {
+              if (value != null) {
+                languageProvider.setLanguage(value);
+              }
+            },
+          ),
+          RadioListTile<bool>(
+            title: const Text('العربية (Arabic)'),
+            value: false,
+            groupValue: languageProvider.isEnglish,
+            onChanged: (bool? value) {
+              if (value != null) {
+                languageProvider.setLanguage(value);
+              }
+            },
+          ),
+          const Divider(height: 32),
+
+          // Display Settings
+          _buildSectionTitle(context, languageProvider.get('displaySettings')),
           SwitchListTile(
-            title: const Text('Enable Notifications'),
-            subtitle: const Text('Receive reminders and health alerts'),
+            title: Text(languageProvider.get('darkMode')),
+            value: themeProvider.isDarkMode,
+            onChanged: (bool value) {
+              themeProvider.setDarkMode(value);
+            },
+            secondary: Icon(
+              themeProvider.isDarkMode
+                  ? Icons.dark_mode_outlined
+                  : Icons.light_mode_outlined,
+            ),
+          ),
+
+          // Unit System
+          SwitchListTile(
+            title: Text(languageProvider.get('useMetricSystem')),
+            subtitle: Text(_useMetricSystem
+                ? languageProvider.get('metricSystemDescription')
+                : languageProvider.get('imperialSystemDescription')),
+            value: _useMetricSystem,
+            onChanged: (value) {
+              setState(() {
+                _useMetricSystem = value;
+              });
+            },
+            secondary: const Icon(Icons.straighten),
+          ),
+
+          const Divider(height: 32),
+
+          // Notifications
+          _buildSectionTitle(context, languageProvider.get('notifications')),
+          SwitchListTile(
+            title: Text(languageProvider.get('enableNotifications')),
+            subtitle: Text(languageProvider.get('receiveReminders')),
             value: _notificationsEnabled,
             onChanged: (value) {
               setState(() {
                 _notificationsEnabled = value;
               });
             },
-            secondary: Icon(
-              Icons.notifications,
-              color: AppConstants.primaryColor,
-            ),
+            secondary: const Icon(Icons.notifications_outlined),
           ),
           if (_notificationsEnabled)
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0),
               child: Column(
                 children: [
                   ListTile(
-                    title: Text('Medication Reminders'),
-                    trailing: Icon(Icons.arrow_forward_ios, size: 16),
+                    title: Text(languageProvider.get('pushNotifications')),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                   ),
                   ListTile(
-                    title: Text('Appointment Alerts'),
-                    trailing: Icon(Icons.arrow_forward_ios, size: 16),
+                    title: Text(languageProvider.get('emailNotifications')),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                   ),
                   ListTile(
-                    title: Text('Health Tips'),
-                    trailing: Icon(Icons.arrow_forward_ios, size: 16),
+                    title: Text(languageProvider.get('medicationReminders')),
+                    trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                   ),
                 ],
               ),
             ),
-        ],
-      ),
-    );
-  }
 
-  Widget _buildPrivacySettings() {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        children: [
+          const Divider(height: 32),
+
+          // Data & Privacy
+          _buildSectionTitle(context, languageProvider.get('dataAndPrivacy')),
           SwitchListTile(
-            title: const Text('Auto-upload Health Data'),
-            subtitle: const Text('Automatically sync data with your healthcare provider'),
+            title: Text(languageProvider.get('autoUploadData')),
+            subtitle: Text(languageProvider.get('autoUploadDescription')),
             value: _autoUploadData,
             onChanged: (value) {
               setState(() {
                 _autoUploadData = value;
               });
             },
-            secondary: Icon(
-              Icons.cloud_upload,
-              color: AppConstants.primaryColor,
-            ),
+            secondary: const Icon(Icons.cloud_upload_outlined),
           ),
-          const Divider(),
           ListTile(
-            title: const Text('Export My Data'),
-            subtitle: const Text('Download all your health records'),
-            leading: Icon(
-              Icons.download,
-              color: AppConstants.primaryColor,
-            ),
+            title: Text(languageProvider.get('exportData')),
+            subtitle: Text(languageProvider.get('exportDataDescription')),
+            leading: const Icon(Icons.download_outlined),
             onTap: () {
               // Implement export functionality
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Exporting data...')),
+                SnackBar(content: Text(languageProvider.get('exportData'))),
               );
             },
           ),
-          const Divider(),
           ListTile(
-            title: const Text('Delete My Account'),
-            subtitle: const Text('Permanently remove all your data'),
-            leading: const Icon(
-              Icons.delete_forever,
-              color: Colors.red,
-            ),
+            title: Text(languageProvider.get('deleteAccount')),
+            subtitle: Text(languageProvider.get('deleteAccountDescription')),
+            leading: const Icon(Icons.delete_forever, color: Colors.red),
             onTap: () {
-              _showDeleteAccountDialog();
+              _showDeleteAccountDialog(languageProvider);
             },
           ),
-        ],
-      ),
-    );
-  }
 
-  void _showDeleteAccountDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete Account?'),
-        content: const Text(
-          'This action cannot be undone. All your data will be permanently deleted.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('CANCEL'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              // Implement account deletion
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Account deletion requested')),
-              );
-            },
-            child: const Text(
-              'DELETE',
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+          const Divider(height: 32),
 
-  Widget _buildAboutSection() {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        children: [
+          // About Section
+          _buildSectionTitle(context, languageProvider.get('about')),
           ListTile(
-            title: const Text('App Version'),
+            title: Text(languageProvider.get('appVersion')),
             subtitle: const Text('1.0.0'),
-            leading: Icon(
-              Icons.info_outline,
-              color: AppConstants.primaryColor,
-            ),
+            leading: const Icon(Icons.info_outline),
           ),
-          const Divider(),
           ListTile(
-            title: const Text('Terms of Service'),
-            leading: Icon(
-              Icons.description,
-              color: AppConstants.primaryColor,
-            ),
+            title: Text(languageProvider.get('tosLabel')),
+            leading: const Icon(Icons.description_outlined),
             onTap: () {
               // Navigate to Terms of Service
             },
           ),
-          const Divider(),
           ListTile(
-            title: const Text('Privacy Policy'),
-            leading: Icon(
-              Icons.privacy_tip,
-              color: AppConstants.primaryColor,
-            ),
+            title: Text(languageProvider.get('privacyPolicyLabel')),
+            leading: const Icon(Icons.privacy_tip_outlined),
             onTap: () {
               // Navigate to Privacy Policy
             },
@@ -329,4 +180,47 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
       ),
     );
   }
-} 
+
+  Widget _buildSectionTitle(BuildContext context, String title) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0, top: 16.0, left: 8.0),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ),
+    );
+  }
+
+  void _showDeleteAccountDialog(LanguageProvider languageProvider) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(languageProvider.get('deleteAccountConfirmation')),
+        content: Text(languageProvider.get('deleteAccountWarning')),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(languageProvider.get('cancel')),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // Implement account deletion
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(languageProvider.get('deleteAccount'))),
+              );
+            },
+            child: Text(
+              languageProvider.get('delete'),
+              style: const TextStyle(color: Colors.red),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

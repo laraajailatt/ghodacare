@@ -139,4 +139,4 @@ class SharedPrefUtil {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('dark_mode', value);
   }
-} 
+}

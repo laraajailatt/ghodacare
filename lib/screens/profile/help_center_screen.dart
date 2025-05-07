@@ -10,7 +10,7 @@ class HelpCenterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
-    
+
     return Directionality(
       textDirection: languageProvider.textDirection,
       child: Scaffold(
@@ -31,8 +31,9 @@ class HelpCenterScreen extends StatelessWidget {
       ),
     );
   }
-  
-  Widget _buildContactSection(BuildContext context, LanguageProvider languageProvider) {
+
+  Widget _buildContactSection(
+      BuildContext context, LanguageProvider languageProvider) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -76,7 +77,8 @@ class HelpCenterScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton.icon(
-              onPressed: () => _launchEmail(languageProvider.get('contactEmail')),
+              onPressed: () =>
+                  _launchEmail(languageProvider.get('contactEmail')),
               icon: const Icon(Icons.email_outlined),
               label: Text(languageProvider.get('contactUs')),
               style: ElevatedButton.styleFrom(
@@ -93,7 +95,7 @@ class HelpCenterScreen extends StatelessWidget {
       ),
     );
   }
-  
+
   Future<void> _launchEmail(String email) async {
     final Uri emailUri = Uri(
       scheme: 'mailto',
@@ -102,14 +104,15 @@ class HelpCenterScreen extends StatelessWidget {
         'subject': 'GhodaCare Support Request',
       },
     );
-    
+
     final String emailLaunchUri = emailUri.toString();
     if (await canLaunchUrlString(emailLaunchUri)) {
       await launchUrlString(emailLaunchUri);
     }
   }
-  
-  Widget _buildFaqSection(BuildContext context, LanguageProvider languageProvider) {
+
+  Widget _buildFaqSection(
+      BuildContext context, LanguageProvider languageProvider) {
     final List<Map<String, String>> faqs = [
       {
         'question': languageProvider.isEnglish
@@ -152,12 +155,14 @@ class HelpCenterScreen extends StatelessWidget {
             : 'لحذف حسابك، يرجى الاتصال بفريق الدعم لدينا على lara.ajailat@gmail.com. سنرشدك خلال عملية حذف الحساب.',
       },
     ];
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          languageProvider.isEnglish ? 'Frequently Asked Questions' : 'الأسئلة الشائعة',
+          languageProvider.isEnglish
+              ? 'Frequently Asked Questions'
+              : 'الأسئلة الشائعة',
           style: AppConstants.headingStyle.copyWith(
             fontSize: 20,
           ),
@@ -167,7 +172,7 @@ class HelpCenterScreen extends StatelessWidget {
       ],
     );
   }
-  
+
   Widget _buildFaqItem(String question, String answer) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -195,4 +200,4 @@ class HelpCenterScreen extends StatelessWidget {
       ),
     );
   }
-} 
+}

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:app_ghoda/constants/app_constants.dart';
-import 'package:app_ghoda/screens/profile/preferences_screen.dart';
-import 'package:app_ghoda/api/api_service.dart';
-import 'package:app_ghoda/utils/shared_pref_util.dart';
+import 'package:ghodacare/constants/app_constants.dart';
+import 'package:ghodacare/screens/profile/preferences_screen.dart';
+import 'package:ghodacare/api/api_service.dart';
+import 'package:ghodacare/utils/shared_pref_util.dart';
 import 'edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -39,27 +39,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
       // First try to get from shared preferences for faster loading
       final name = await SharedPrefUtil.getUserName();
       final email = await SharedPrefUtil.getUserEmail();
-      
+
       if (name != null && email != null) {
         setState(() {
           _userName = name;
           _email = email;
         });
       }
-      
+
       // Then load full profile from API
       final response = await _apiService.getUserProfile();
-      
+
       if (response['success'] == true) {
         final userData = response['data'];
-        
+
         setState(() {
           _userName = userData['name'] ?? 'User';
           _email = userData['email'] ?? 'user@example.com';
           _dob = userData['birth_date'] ?? 'Not set';
           _bloodType = userData['blood_type'] ?? 'Not set';
-          _height = userData['height'] != null ? '${userData['height']} cm' : 'Not set';
-          _weight = userData['weight'] != null ? '${userData['weight']} kg' : 'Not set';
+          _height = userData['height'] != null
+              ? '${userData['height']} cm'
+              : 'Not set';
+          _weight = userData['weight'] != null
+              ? '${userData['weight']} kg'
+              : 'Not set';
         });
       } else {
         setState(() {
@@ -100,7 +104,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             child: Row(
                               children: [
-                                const Icon(Icons.error_outline, color: Colors.red),
+                                const Icon(Icons.error_outline,
+                                    color: Colors.red),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
@@ -169,7 +174,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               radius: 50,
               backgroundColor: const Color(0xFFE8E7F7),
               child: Text(
-                _userName.isNotEmpty ? _userName.substring(0, 1).toUpperCase() : 'U',
+                _userName.isNotEmpty
+                    ? _userName.substring(0, 1).toUpperCase()
+                    : 'U',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -202,7 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     builder: (context) => const EditProfileScreen(),
                   ),
                 );
-                
+
                 // Refresh data if profile was updated
                 if (result == true) {
                   _loadUserData();
@@ -252,7 +259,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onPressed: () {
                   // Navigate to edit health info screen
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Update health info coming soon')),
+                    const SnackBar(
+                        content: Text('Update health info coming soon')),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -369,7 +377,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildOptionTile(String title, IconData icon, {Color? textColor, required VoidCallback onTap}) {
+  Widget _buildOptionTile(String title, IconData icon,
+      {Color? textColor, required VoidCallback onTap}) {
     return ListTile(
       leading: Icon(
         icon,
@@ -418,4 +427,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-} 
+}

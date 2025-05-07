@@ -1,10 +1,10 @@
 // ignore_for_file: unused_field, deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:app_ghoda/constants/app_constants.dart';
-import 'package:app_ghoda/api/api_service.dart';
-import 'package:app_ghoda/utils/shared_pref_util.dart';
-import 'package:app_ghoda/utils/mock_auth_service.dart';
+import 'package:ghodacare/constants/app_constants.dart';
+import 'package:ghodacare/api/api_service.dart';
+import 'package:ghodacare/utils/shared_pref_util.dart';
+import 'package:ghodacare/utils/mock_auth_service.dart';
 import 'register_screen.dart';
 import 'forgot_password_screen.dart';
 import '../home_screen.dart';
@@ -57,11 +57,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
         if (!mounted) return;
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => const HomeScreen(selectedIndex: 0)),
         );
       } else {
         setState(() {
-          _errorMessage = response['message'] ?? 'Login failed. Please try again.';
+          _errorMessage =
+              response['message'] ?? 'Login failed. Please try again.';
         });
       }
     } catch (e) {
@@ -82,7 +83,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
+            height: MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.top,
             padding: const EdgeInsets.symmetric(horizontal: 40.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -108,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 48),
-                
+
                 if (_errorMessage.isNotEmpty) ...[
                   Container(
                     padding: const EdgeInsets.all(12),
@@ -144,23 +146,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Enter your email',
                           filled: true,
                           fillColor: Colors.grey[200],
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                          suffixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          suffixIcon: const Icon(Icons.email_outlined,
+                              color: Colors.grey),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
                           ),
                         ),
                         validator: (value) {
-                          if (value == null || value.isEmpty) return 'Please enter your email';
-                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
                             return 'Enter a valid email';
                           }
                           return null;
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Password field
                       TextFormField(
                         controller: _passwordController,
@@ -169,14 +176,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Password',
                           filled: true,
                           fillColor: Colors.grey[200],
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscurePassword ? Icons.lock_outline : Icons.lock_open_outlined,
+                              _obscurePassword
+                                  ? Icons.lock_outline
+                                  : Icons.lock_open_outlined,
                               color: Colors.grey,
                             ),
                             onPressed: () {
-                              setState(() => _obscurePassword = !_obscurePassword);
+                              setState(
+                                  () => _obscurePassword = !_obscurePassword);
                             },
                           ),
                           border: OutlineInputBorder(
@@ -184,8 +195,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderSide: BorderSide.none,
                           ),
                         ),
-                        validator: (value) =>
-                            value == null || value.isEmpty ? 'Please enter your password' : null,
+                        validator: (value) => value == null || value.isEmpty
+                            ? 'Please enter your password'
+                            : null,
                       ),
                     ],
                   ),
@@ -220,7 +232,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
+                          MaterialPageRoute(
+                              builder: (_) => const ForgotPasswordScreen()),
                         );
                       },
                       style: TextButton.styleFrom(
@@ -297,7 +310,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                            MaterialPageRoute(
+                                builder: (_) => const RegisterScreen()),
                           );
                         },
                         style: TextButton.styleFrom(

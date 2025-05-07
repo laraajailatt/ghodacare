@@ -10,6 +10,8 @@ class SymptomModel {
   final String timeOfDay;
   final String? notes;
   final String? aiAnalysis;
+  final bool hasFamilyThyroidHistory;
+  final List<String> familyMembersWithThyroid;
 
   SymptomModel({
     required this.id,
@@ -21,6 +23,8 @@ class SymptomModel {
     required this.timeOfDay,
     this.notes,
     this.aiAnalysis,
+    this.hasFamilyThyroidHistory = false,
+    this.familyMembersWithThyroid = const [],
   });
 
   factory SymptomModel.fromJson(Map<String, dynamic> json) {
@@ -28,16 +32,20 @@ class SymptomModel {
       id: json['id'] ?? '',
       description: json['description'] ?? '',
       severity: json['severity'] ?? 'Moderate',
-      date: json['date'] != null 
-          ? DateFormat('yyyy-MM-dd').parse(json['date']) 
+      date: json['date'] != null
+          ? DateFormat('yyyy-MM-dd').parse(json['date'])
           : DateTime.now(),
       duration: json['duration'] ?? '1-3 days',
-      triggers: json['triggers'] != null 
-          ? List<String>.from(json['triggers']) 
+      triggers: json['triggers'] != null
+          ? List<String>.from(json['triggers'])
           : <String>[],
       timeOfDay: json['time_of_day'] ?? 'Morning',
       notes: json['notes'],
       aiAnalysis: json['ai_analysis'],
+      hasFamilyThyroidHistory: json['has_family_thyroid_history'] ?? false,
+      familyMembersWithThyroid: json['family_members_with_thyroid'] != null
+          ? List<String>.from(json['family_members_with_thyroid'])
+          : <String>[],
     );
   }
 
@@ -52,6 +60,8 @@ class SymptomModel {
       'time_of_day': timeOfDay,
       'notes': notes,
       'ai_analysis': aiAnalysis,
+      'has_family_thyroid_history': hasFamilyThyroidHistory,
+      'family_members_with_thyroid': familyMembersWithThyroid,
     };
   }
-} 
+}

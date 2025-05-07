@@ -5,14 +5,13 @@ import 'app_constants.dart';
 class AppTheme {
   // Private constructor to prevent instantiation
   AppTheme._();
-  
+
   // Light theme
   static ThemeData lightTheme() {
     return ThemeData(
       primaryColor: AppConstants.primaryColor,
       scaffoldBackgroundColor: AppConstants.backgroundColor,
       fontFamily: GoogleFonts.leagueSpartan().fontFamily,
-      
       appBarTheme: AppBarTheme(
         backgroundColor: AppConstants.primaryColor,
         elevation: 0,
@@ -23,7 +22,6 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
       ),
-      
       textTheme: GoogleFonts.leagueSpartanTextTheme().copyWith(
         displayLarge: GoogleFonts.leagueSpartan(
           color: AppConstants.textDarkColor,
@@ -58,7 +56,6 @@ class AppTheme {
           fontSize: 12.0,
         ),
       ),
-      
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: AppConstants.primaryColor,
@@ -73,7 +70,6 @@ class AppTheme {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
         ),
       ),
-      
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppConstants.primaryColor,
@@ -88,7 +84,6 @@ class AppTheme {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
         ),
       ),
-      
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: AppConstants.primaryColor,
@@ -98,7 +93,6 @@ class AppTheme {
           ),
         ),
       ),
-      
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.white,
@@ -124,7 +118,6 @@ class AppTheme {
           fontSize: 14.0,
         ),
       ),
-      
       cardTheme: CardTheme(
         elevation: 2,
         shape: RoundedRectangleBorder(
@@ -133,10 +126,9 @@ class AppTheme {
       ),
     );
   }
-  
 
   static ThemeData darkTheme() {
     // TODO: Implement dark theme
     return lightTheme();
   }
-} 
+}

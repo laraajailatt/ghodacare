@@ -60,4 +60,4 @@ class User {
       updatedAt: updatedAt ?? this.updatedAt,
     );
   }
-} 
+}

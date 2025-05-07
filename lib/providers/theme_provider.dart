@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:app_ghoda/constants/app_constants.dart';
-import 'package:app_ghoda/utils/shared_pref_util.dart';
+import 'package:ghodacare/constants/app_constants.dart';
+import 'package:ghodacare/utils/shared_pref_util.dart';
 
 class ThemeProvider extends ChangeNotifier {
   bool _isDarkMode = false;
@@ -118,7 +118,7 @@ class ThemeProvider extends ChangeNotifier {
   static final ThemeData _darkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: AppConstants.primaryColor,
-    scaffoldBackgroundColor: const Color(0xFF121212),
+    scaffoldBackgroundColor: const Color(0xFF333333),
     appBarTheme: const AppBarTheme(
       backgroundColor: Color(0xFF1E1E1E),
       iconTheme: IconThemeData(color: Colors.white),
@@ -202,4 +202,4 @@ class ThemeProvider extends ChangeNotifier {
       brightness: Brightness.dark,
     ),
   );
-} 
+}

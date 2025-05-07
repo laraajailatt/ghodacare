@@ -38,7 +38,7 @@ class BloodworkModel {
       final key = entry.key;
       final value = entry.value;
       final range = referenceRanges[key];
-      
+
       if (range != null) {
         if (value < range['min']! || value > range['max']!) {
           return false;
@@ -53,27 +53,27 @@ class BloodworkModel {
     if (!thyroidValues.containsKey(testName)) {
       return false;
     }
-    
+
     final value = thyroidValues[testName]!;
     final range = referenceRanges[testName];
-    
+
     if (range == null) {
       return false;
     }
-    
+
     return value < range['min']! || value > range['max']!;
   }
 
   // Get all abnormal thyroid values
   Map<String, double> getAbnormalThyroidValues() {
     final abnormalValues = <String, double>{};
-    
+
     thyroidValues.forEach((key, value) {
       if (isValueAbnormal(key)) {
         abnormalValues[key] = value;
       }
     });
-    
+
     return abnormalValues;
   }
 
@@ -87,22 +87,22 @@ class BloodworkModel {
     // Parse thyroid values
     final thyroidValuesJson = json['thyroid_values'] as Map<String, dynamic>;
     final thyroidValues = <String, double>{};
-    
+
     thyroidValuesJson.forEach((key, value) {
       thyroidValues[key] = value is int ? value.toDouble() : value;
     });
-    
+
     // Parse other values if available
     Map<String, double>? otherValues;
     if (json.containsKey('other_values') && json['other_values'] != null) {
       final otherValuesJson = json['other_values'] as Map<String, dynamic>;
       otherValues = <String, double>{};
-      
+
       otherValuesJson.forEach((key, value) {
         otherValues![key] = value is int ? value.toDouble() : value;
       });
     }
-    
+
     return BloodworkModel(
       id: json['id'],
       date: DateTime.parse(json['date']),
@@ -126,4 +126,4 @@ class BloodworkModel {
       'ai_analysis': aiAnalysis,
     };
   }
-} 
+}

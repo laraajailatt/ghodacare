@@ -12,17 +12,17 @@ class ChangePasswordScreen extends StatefulWidget {
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  
+
   final _currentPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  
+
   bool _obscureCurrentPassword = true;
   bool _obscureNewPassword = true;
   bool _obscureConfirmPassword = true;
-  
+
   bool _isLoading = false;
-  
+
   @override
   void dispose() {
     _currentPasswordController.dispose();
@@ -30,30 +30,31 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     _confirmPasswordController.dispose();
     super.dispose();
   }
-  
+
   Future<void> _changePassword() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
-      
+
       // Simulate API call
       await Future.delayed(const Duration(seconds: 1));
-      
+
       setState(() {
         _isLoading = false;
       });
-      
+
       if (mounted) {
-        final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
-        
+        final languageProvider =
+            Provider.of<LanguageProvider>(context, listen: false);
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(languageProvider.get('passwordChanged')),
             backgroundColor: Colors.green,
           ),
         );
-        
+
         Navigator.pop(context);
       }
     }
@@ -62,7 +63,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
-    
+
     return Directionality(
       textDirection: languageProvider.textDirection,
       child: Scaffold(
@@ -88,7 +89,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       ),
     );
   }
-  
+
   Widget _buildSecurityIcon() {
     return Center(
       child: Container(
@@ -106,7 +107,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       ),
     );
   }
-  
+
   Widget _buildPasswordFields(LanguageProvider languageProvider) {
     return Column(
       children: [
@@ -169,7 +170,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       ],
     );
   }
-  
+
   Widget _buildPasswordField({
     required TextEditingController controller,
     required String labelText,
@@ -196,7 +197,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       validator: validator,
     );
   }
-  
+
   Widget _buildSaveButton(LanguageProvider languageProvider) {
     return SizedBox(
       width: double.infinity,
@@ -221,9 +222,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               )
             : Text(
                 languageProvider.get('save'),
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
       ),
     );
   }
-} 
+}

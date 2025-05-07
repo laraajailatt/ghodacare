@@ -3,9 +3,80 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:app_ghoda/constants/app_constants.dart';
-import 'package:app_ghoda/utils/shared_pref_util.dart';
-import 'auth/login_screen.dart';
+import 'package:ghodacare/constants/app_constants.dart';
+import 'package:ghodacare/utils/shared_pref_util.dart';
+import 'package:ghodacare/screens/auth/login_screen.dart';
+
+// Define a transparent image placeholder
+final Uint8List kTransparentImage = Uint8List.fromList([
+  0x89,
+  0x50,
+  0x4E,
+  0x47,
+  0x0D,
+  0x0A,
+  0x1A,
+  0x0A,
+  0x00,
+  0x00,
+  0x00,
+  0x0D,
+  0x49,
+  0x48,
+  0x44,
+  0x52,
+  0x00,
+  0x00,
+  0x00,
+  0x01,
+  0x00,
+  0x00,
+  0x00,
+  0x01,
+  0x08,
+  0x06,
+  0x00,
+  0x00,
+  0x00,
+  0x1F,
+  0x15,
+  0xC4,
+  0x89,
+  0x00,
+  0x00,
+  0x00,
+  0x0A,
+  0x49,
+  0x44,
+  0x41,
+  0x54,
+  0x78,
+  0x9C,
+  0x63,
+  0x00,
+  0x01,
+  0x00,
+  0x00,
+  0x05,
+  0x00,
+  0x01,
+  0x0D,
+  0x0A,
+  0x2D,
+  0xB4,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x49,
+  0x45,
+  0x4E,
+  0x44,
+  0xAE,
+  0x42,
+  0x60,
+  0x82
+]);
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -53,9 +124,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     // Mark first-time flag as false and set welcome screen as seen
     await SharedPrefUtil.setFirstTime(false);
     await SharedPrefUtil.setWelcomeScreenSeen();
-    
+
     if (!mounted) return;
-    
+
     // Navigate to login screen
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (_) => const LoginScreen()),
@@ -95,7 +166,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             // Bottom controls - page indicator and next button
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -111,7 +183,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       spacing: 4,
                     ),
                   ),
-                  
+
                   // Next button
                   ElevatedButton(
                     onPressed: () {
@@ -130,7 +202,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       padding: const EdgeInsets.all(16),
                     ),
                     child: Icon(
-                      _currentPage < _numPages - 1 ? Icons.arrow_forward : Icons.check,
+                      _currentPage < _numPages - 1
+                          ? Icons.arrow_forward
+                          : Icons.check,
                       color: Colors.white,
                     ),
                   ),
@@ -208,9 +282,9 @@ class OnboardingPage {
                     height: 1.1,
                   ),
                 ),
-                
+
                 const SizedBox(height: 12),
-                
+
                 // Description
                 Text(
                   description,
@@ -230,13 +304,3 @@ class OnboardingPage {
     );
   }
 }
-
-// Transparent image placeholder
-final Uint8List kTransparentImage = Uint8List.fromList([
-  0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A, 0x00, 0x00, 0x00, 0x0D, 0x49,
-  0x48, 0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x08, 0x06,
-  0x00, 0x00, 0x00, 0x1F, 0x15, 0xC4, 0x89, 0x00, 0x00, 0x00, 0x0A, 0x49, 0x44,
-  0x41, 0x54, 0x78, 0x9C, 0x63, 0x00, 0x01, 0x00, 0x00, 0x05, 0x00, 0x01, 0x0D,
-  0x0A, 0x2D, 0xB4, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4E, 0x44, 0xAE, 0x42,
-  0x60, 0x82,
-]);

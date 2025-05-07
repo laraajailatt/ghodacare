@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:app_ghoda/constants/app_constants.dart';
-import 'package:app_ghoda/api/api_service.dart';
-import 'package:app_ghoda/utils/shared_pref_util.dart';
-import 'package:app_ghoda/utils/mock_auth_service.dart';
+import 'package:ghodacare/constants/app_constants.dart';
+import 'package:ghodacare/api/api_service.dart';
+import 'package:ghodacare/utils/shared_pref_util.dart';
+import 'package:ghodacare/utils/mock_auth_service.dart';
 import 'login_screen.dart';
 import '../home_screen.dart';
 
@@ -53,8 +53,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {
       // Combine first and last name
-      final fullName = "${_firstNameController.text.trim()} ${_lastNameController.text.trim()}";
-      
+      final fullName =
+          "${_firstNameController.text.trim()} ${_lastNameController.text.trim()}";
+
       // Use MockAuthService instead of ApiService
       final response = await MockAuthService.registerUser(
         fullName,
@@ -68,7 +69,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         await SharedPrefUtil.saveUserToken(response['token']);
         await SharedPrefUtil.saveUserId(response['user']['id']);
         await SharedPrefUtil.saveUserName(response['user']['name']);
-        await SharedPrefUtil.saveUserFirstName(_firstNameController.text.trim());
+        await SharedPrefUtil.saveUserFirstName(
+            _firstNameController.text.trim());
         await SharedPrefUtil.saveUserLastName(_lastNameController.text.trim());
         await SharedPrefUtil.saveUserEmail(response['user']['email']);
         await SharedPrefUtil.setWelcomeScreenSeen();
@@ -77,12 +79,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         // Navigate to home screen
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          MaterialPageRoute(builder: (_) => const HomeScreen(selectedIndex: 0)),
         );
       } else {
         setState(() {
           _isLoading = false;
-          _errorMessage = response['message'] ?? 'Registration failed. Please try again.';
+          _errorMessage =
+              response['message'] ?? 'Registration failed. Please try again.';
         });
       }
     } catch (e) {
@@ -100,12 +103,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
+            height: MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.top,
             padding: const EdgeInsets.symmetric(horizontal: 40.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [  
+              children: [
                 Text(
                   'Get Started',
                   textAlign: TextAlign.center,
@@ -126,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 const SizedBox(height: 48),
-                
+
                 if (_errorMessage.isNotEmpty) ...[
                   Container(
                     padding: const EdgeInsets.all(12),
@@ -149,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 24),
                 ],
-                
+
                 // Registration Form
                 Form(
                   key: _formKey,
@@ -163,8 +167,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: 'First name',
                           filled: true,
                           fillColor: Colors.grey[200],
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                          suffixIcon: const Icon(Icons.person_outline, color: Colors.grey),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          suffixIcon: const Icon(Icons.person_outline,
+                              color: Colors.grey),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
@@ -178,7 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Last name field
                       TextFormField(
                         controller: _lastNameController,
@@ -187,8 +193,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: 'Last name',
                           filled: true,
                           fillColor: Colors.grey[200],
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                          suffixIcon: const Icon(Icons.person_outline, color: Colors.grey),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          suffixIcon: const Icon(Icons.person_outline,
+                              color: Colors.grey),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
@@ -202,7 +210,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Email field
                       TextFormField(
                         controller: _emailController,
@@ -211,8 +219,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: 'Valid email',
                           filled: true,
                           fillColor: Colors.grey[200],
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                          suffixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          suffixIcon: const Icon(Icons.email_outlined,
+                              color: Colors.grey),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
@@ -222,14 +232,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your email';
                           }
-                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
                             return 'Please enter a valid email';
                           }
                           return null;
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Password field
                       TextFormField(
                         controller: _passwordController,
@@ -238,10 +249,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintText: 'Strong Password',
                           filled: true,
                           fillColor: Colors.grey[200],
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscurePassword ? Icons.lock_outline : Icons.lock_open_outlined,
+                              _obscurePassword
+                                  ? Icons.lock_outline
+                                  : Icons.lock_open_outlined,
                               color: Colors.grey,
                             ),
                             onPressed: () {
@@ -266,7 +280,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                       ),
                       const SizedBox(height: 24),
-                      
+
                       // Terms and conditions checkbox
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -312,7 +326,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ],
                       ),
                       const SizedBox(height: 32),
-                      
+
                       // Register button
                       SizedBox(
                         width: double.infinity,
@@ -328,36 +342,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           onPressed: _isLoading ? null : _register,
                           child: _isLoading
-                            ? const SizedBox(
-                                height: 24,
-                                width: 24,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Next',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                              ? const SizedBox(
+                                  height: 24,
+                                  width: 24,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2,
                                   ),
-                                  const SizedBox(width: 8),
-                                  Icon(Icons.arrow_forward, size: 20),
-                                ],
-                              ),
+                                )
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Next',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Icon(Icons.arrow_forward, size: 20),
+                                  ],
+                                ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                
+
                 const SizedBox(height: 24),
-                
+
                 // Login link
                 Center(
                   child: Row(
@@ -373,7 +387,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => const LoginScreen()),
+                            MaterialPageRoute(
+                                builder: (_) => const LoginScreen()),
                           );
                         },
                         style: TextButton.styleFrom(
@@ -400,4 +415,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-} 
+}
