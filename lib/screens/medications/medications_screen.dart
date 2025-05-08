@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../widgets/bottom_nav_bar.dart';
 import 'package:ghodacare/api/api_service.dart';
-import 'package:intl/intl.dart';
 
 class MedicationsScreen extends StatefulWidget {
   const MedicationsScreen({super.key});
@@ -29,30 +27,8 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
     });
 
     try {
-      // Here we would fetch actual data from API
-      // For now using mock data similar to bloodwork structure
-      final medicationsData = [
-        {
-          'id': '1',
-          'name': 'Levothyroxine',
-          'dosage': '50mcg',
-          'frequency': 'Once daily',
-          'time': 'Morning',
-          'start_date': '2024-01-15',
-          'notes': 'Take on empty stomach',
-          'active': true,
-        },
-        {
-          'id': '2',
-          'name': 'Vitamin D',
-          'dosage': '2000 IU',
-          'frequency': 'Once daily',
-          'time': 'With meal',
-          'start_date': '2024-02-01',
-          'notes': '',
-          'active': true,
-        },
-      ];
+      // Placeholder for Firebase integration
+      final medicationsData = [];
 
       setState(() {
         _medicationsHistory = medicationsData;
@@ -225,8 +201,7 @@ class _MedicationsScreenState extends State<MedicationsScreen> {
             ),
             const SizedBox(height: 16),
             ..._medicationsHistory
-                .map((medication) => _buildMedicationItem(medication))
-                .toList(),
+                .map((medication) => _buildMedicationItem(medication)),
           ],
         ),
       ),

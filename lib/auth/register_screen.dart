@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ghodacare/constants/app_constants.dart';
-import 'package:ghodacare/screens/home_screen.dart';
+import 'package:ghodacare/api/api_service.dart';
 import 'package:ghodacare/utils/shared_pref_util.dart';
-import 'package:ghodacare/utils/mock_auth_service.dart';
 import 'login_screen.dart';
+import '../home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -18,7 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-// Keep for reference but don't use
+  final _apiService = ApiService();
   bool _isLoading = false;
   bool _obscurePassword = true;
   bool _agreeToTerms = false;
@@ -51,16 +51,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
 
     try {
-      // Combine first and last name
-      final fullName =
-          "${_firstNameController.text.trim()} ${_lastNameController.text.trim()}";
-
-      // Use MockAuthService instead of ApiService
-      final response = await MockAuthService.registerUser(
-        fullName,
+      // Use ApiService for Firebase integration
+      final response = await _apiService.register(
+        _firstNameController.text.trim(),
+        _lastNameController.text.trim(),
         _emailController.text.trim(),
         _passwordController.text,
-        "", // Empty phone number
       );
 
       if (response['success'] == true) {

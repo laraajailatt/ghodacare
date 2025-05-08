@@ -14,7 +14,7 @@ class AppConstants {
   static const String infermedicaAppKey = "d8a13aac51b54186e716fa5a400222f7";
 
   // Feature Flags
-  static const bool kUseMockData = true; // Set to false to use real API calls
+  static const bool kUseMockData = false; // Set to false to use real API calls
 
   // Colors
   static const Color primaryColor = Color(0xFF8121D3); // Purple

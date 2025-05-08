@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ghodacare/constants/app_constants.dart';
 import 'package:ghodacare/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:ghodacare/providers/language_provider.dart';

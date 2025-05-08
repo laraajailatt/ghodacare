@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import 'package:ghodacare/api/api_service.dart';
-import 'package:intl/intl.dart';
 
 class HealthMetricsScreen extends StatefulWidget {
   const HealthMetricsScreen({super.key});
@@ -29,19 +28,8 @@ class _HealthMetricsScreenState extends State<HealthMetricsScreen> {
     });
 
     try {
-      // Here we would fetch actual data from API
-      // For now using mock data similar to bloodwork structure
-      final healthMetricsData = [
-        {
-          'date': '2024-05-01',
-          'weight': {'value': 70.5, 'unit': 'kg'},
-          'height': {'value': 175.0, 'unit': 'cm'},
-          'bmi': 23.0,
-          'blood_pressure': {'systolic': 120, 'diastolic': 80, 'unit': 'mmHg'},
-          'heart_rate': {'value': 75, 'unit': 'bpm'},
-          'blood_sugar': {'value': 95.0, 'unit': 'mg/dL'},
-        },
-      ];
+      // Placeholder for Firebase integration
+      final healthMetricsData = [];
 
       setState(() {
         _healthMetricsHistory = healthMetricsData;

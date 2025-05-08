@@ -12,7 +12,6 @@ import 'package:ghodacare/screens/profile/notifications_screen.dart';
 import 'package:ghodacare/screens/profile/change_password_request_screen.dart';
 import 'package:ghodacare/screens/profile/help_screen.dart';
 import 'package:ghodacare/utils/shared_pref_util.dart';
-import 'package:intl/intl.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});

@@ -46,14 +46,15 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
         _birthdayController.text = profile['dateOfBirth'] ?? '';
         _selectedGender = profile['gender'] ?? 'Male';
       } else {
-        // If API returns success: false, load mock data instead of showing error
-        _loadMockUserData();
+        // Placeholder for Firebase integration
+        setState(() {
+          _hasError = true;
+        });
       }
     } catch (e) {
-      // If API call fails, load mock data instead of showing error
-      _loadMockUserData();
+      // Handle error, will be replaced with Firebase integration
       setState(() {
-        _hasError = false; // Don't show error since we're using mock data
+        _hasError = true;
       });
     } finally {
       setState(() {
@@ -62,13 +63,13 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
     }
   }
 
-  // Load mock user data for development purposes
+  // Placeholder for Firebase integration
   void _loadMockUserData() {
-    _nameController.text = 'Lara Ajailat';
-    _emailController.text = 'lara.ajailat@gmail.com';
-    _phoneController.text = '+962 79 123 4567';
-    _birthdayController.text = '05/15/1992';
-    _selectedGender = 'Female';
+    _nameController.text = '';
+    _emailController.text = '';
+    _phoneController.text = '';
+    _birthdayController.text = '';
+    _selectedGender = 'Male';
   }
 
   @override

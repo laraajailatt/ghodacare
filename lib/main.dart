@@ -11,6 +11,7 @@ import 'package:ghodacare/screens/health/health_metrics_screen.dart';
 import 'package:ghodacare/screens/health/add_health_metrics_screen.dart';
 import 'package:ghodacare/screens/medications/medications_screen.dart';
 import 'package:ghodacare/screens/medications/add_medication_screen.dart';
+import 'package:ghodacare/screens/wellness/wellness_screen.dart';
 import 'package:ghodacare/utils/shared_pref_util.dart';
 import 'package:ghodacare/providers/theme_provider.dart';
 import 'package:ghodacare/providers/language_provider.dart';
@@ -52,7 +53,7 @@ class GhodaCareApp extends StatelessWidget {
       routes: {
         '/home': (context) => const HomeScreen(selectedIndex: 0),
         '/dashboard': (context) => const HomeScreen(selectedIndex: 1),
-        '/wellness': (context) => const HomeScreen(selectedIndex: 2),
+        '/wellness': (context) => const WellnessScreen(),
         '/profile': (context) => const HomeScreen(selectedIndex: 3),
         '/health_metrics': (context) => const HealthMetricsScreen(),
         '/add_health_metrics': (context) => const AddHealthMetricsScreen(),

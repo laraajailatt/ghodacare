@@ -43,97 +43,11 @@ class _DashboardTabState extends State<DashboardTab>
     });
 
     try {
-      // Dummy symptoms data
-      _symptoms = [
-        {
-          'date': '2024-03-15',
-          'description': 'Fatigue and tiredness',
-          'severity': 'Moderate',
-          'duration': '2 days',
-          'notes': 'Felt more tired than usual, especially in the afternoon'
-        },
-        {
-          'date': '2024-03-10',
-          'description': 'Weight gain',
-          'severity': 'Mild',
-          'duration': '1 week',
-          'notes': 'Gained 2kg over the past week'
-        },
-        {
-          'date': '2024-03-05',
-          'description': 'Cold sensitivity',
-          'severity': 'Severe',
-          'duration': '3 days',
-          'notes': 'Feeling extremely cold even in warm weather',
-          'has_family_thyroid_history': true,
-          'family_members_with_thyroid': ['Mother', 'Grandparent']
-        }
-      ];
-
-      // Dummy bloodwork data
-      _bloodworkHistory = [
-        {
-          'date': '2024-03-15',
-          'tests': [
-            {'name': 'TSH', 'value': '2.5', 'unit': 'mIU/L'},
-            {'name': 'Free T4', 'value': '1.2', 'unit': 'ng/dL'},
-            {'name': 'Free T3', 'value': '3.2', 'unit': 'pg/mL'}
-          ]
-        },
-        {
-          'date': '2024-02-15',
-          'tests': [
-            {'name': 'TSH', 'value': '3.8', 'unit': 'mIU/L'},
-            {'name': 'Free T4', 'value': '1.0', 'unit': 'ng/dL'},
-            {'name': 'Free T3', 'value': '2.8', 'unit': 'pg/mL'}
-          ]
-        },
-        {
-          'date': '2024-01-15',
-          'tests': [
-            {'name': 'TSH', 'value': '4.5', 'unit': 'mIU/L'},
-            {'name': 'Free T4', 'value': '0.9', 'unit': 'ng/dL'},
-            {'name': 'Free T3', 'value': '2.5', 'unit': 'pg/mL'}
-          ]
-        }
-      ];
-
-      // Dummy health metrics data
-      _healthMetricsHistory = [
-        {
-          'date': '2024-05-01',
-          'weight': {'value': 70.5, 'unit': 'kg'},
-          'height': {'value': 175.0, 'unit': 'cm'},
-          'bmi': 23.0,
-          'blood_pressure': {'systolic': 120, 'diastolic': 80, 'unit': 'mmHg'},
-          'heart_rate': {'value': 75, 'unit': 'bpm'},
-          'blood_sugar': {'value': 95.0, 'unit': 'mg/dL'},
-        },
-      ];
-
-      // Dummy medications data
-      _medicationsHistory = [
-        {
-          'id': '1',
-          'name': 'Levothyroxine',
-          'dosage': '50mcg',
-          'frequency': 'Once daily',
-          'time': 'Morning',
-          'start_date': '2024-01-15',
-          'notes': 'Take on empty stomach',
-          'active': true,
-        },
-        {
-          'id': '2',
-          'name': 'Vitamin D',
-          'dosage': '2000 IU',
-          'frequency': 'Once daily',
-          'time': 'With meal',
-          'start_date': '2024-02-01',
-          'notes': '',
-          'active': true,
-        },
-      ];
+      // Load data from API/Firebase - placeholders for future integration
+      _symptoms = [];
+      _bloodworkHistory = [];
+      _healthMetricsHistory = [];
+      _medicationsHistory = [];
 
       setState(() {
         _isLoading = false;
@@ -696,10 +610,12 @@ class _DashboardTabState extends State<DashboardTab>
 
   Color getColorForBloodSugar(double bloodSugar) {
     if (bloodSugar < 70) return Colors.orange; // Low
-    if (bloodSugar >= 70 && bloodSugar <= 99)
+    if (bloodSugar >= 70 && bloodSugar <= 99) {
       return Colors.green; // Normal fasting
-    if (bloodSugar >= 100 && bloodSugar <= 125)
+    }
+    if (bloodSugar >= 100 && bloodSugar <= 125) {
       return Colors.orange; // Prediabetes
+    }
     return Colors.red; // Diabetes
   }
 

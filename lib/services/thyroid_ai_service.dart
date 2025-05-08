@@ -124,8 +124,7 @@ class ThyroidAIService {
       // Add health metrics insights if available
       if (healthInsights.isNotEmpty) {
         recommendation +=
-            '\n\nAdditional insights based on your health metrics:\n' +
-                healthInsights.join('\n');
+            '\n\nAdditional insights based on your health metrics:\n${healthInsights.join('\n')}';
       }
 
       // Add family history context
@@ -143,8 +142,7 @@ class ThyroidAIService {
       // Add health metrics insights if available
       if (healthInsights.isNotEmpty) {
         recommendation +=
-            '\n\nAdditional insights based on your health metrics:\n' +
-                healthInsights.join('\n');
+            '\n\nAdditional insights based on your health metrics:\n${healthInsights.join('\n')}';
       }
 
       // Add family history context
@@ -173,8 +171,7 @@ class ThyroidAIService {
         // Add specific recommendations based on health metrics
         if (healthInsights.isNotEmpty) {
           recommendation +=
-              '\n\nAdditional insights based on your health metrics:\n' +
-                  healthInsights.join('\n');
+              '\n\nAdditional insights based on your health metrics:\n${healthInsights.join('\n')}';
         }
       }
 
@@ -203,8 +200,7 @@ class ThyroidAIService {
         // Add specific recommendations based on health metrics
         if (healthInsights.isNotEmpty) {
           recommendation +=
-              '\n\nAdditional insights based on your health metrics:\n' +
-                  healthInsights.join('\n');
+              '\n\nAdditional insights based on your health metrics:\n${healthInsights.join('\n')}';
         }
       }
 
@@ -222,8 +218,7 @@ class ThyroidAIService {
 
       if (healthInsights.isNotEmpty) {
         recommendation +=
-            '\n\nAdditional insights based on your health metrics:\n' +
-                healthInsights.join('\n');
+            '\n\nAdditional insights based on your health metrics:\n${healthInsights.join('\n')}';
       }
 
       // Add family history context
@@ -240,8 +235,7 @@ class ThyroidAIService {
       // Add general wellness recommendations based on health metrics
       if (healthMetrics != null && healthInsights.isNotEmpty) {
         recommendation +=
-            ' Continue with regular check-ups.\n\nAdditional insights based on your health metrics:\n' +
-                healthInsights.join('\n');
+            ' Continue with regular check-ups.\n\nAdditional insights based on your health metrics:\n${healthInsights.join('\n')}';
       } else {
         recommendation +=
             ' Continue with regular check-ups and a healthy lifestyle.';

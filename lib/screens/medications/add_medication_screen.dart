@@ -26,7 +26,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  bool _isLoading = false;
+  final bool _isLoading = false;
   TimeOfDay _selectedTime = TimeOfDay.now();
 
   final List<String> _selectedDays = [
@@ -126,7 +126,7 @@ class _AddMedicationScreenState extends State<AddMedicationScreen> {
   }
 
   Future<void> _addMedication() async {
-    if (_formKey.currentState!.validate() && _selectedTime != null) {
+    if (_formKey.currentState!.validate()) {
       if (_frequency == 'weekly' && _selectedDays.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

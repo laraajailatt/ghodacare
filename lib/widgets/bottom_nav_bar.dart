@@ -13,8 +13,10 @@ class BottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: selectedIndex,
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: const Color(0xFF7E57C2),
+      selectedItemColor: const Color(0xFF9C27B0),
       unselectedItemColor: Colors.grey,
+      backgroundColor: Colors.white,
+      elevation: 0,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
@@ -27,8 +29,8 @@ class BottomNavBar extends StatelessWidget {
           label: 'Dashboard',
         ),
         BottomNavigationBarItem(
-          icon: ImageIcon(AssetImage('assets/images/wellness icon.png')),
-          activeIcon: ImageIcon(AssetImage('assets/images/wellness icon.png')),
+          icon: Icon(Icons.spa_outlined),
+          activeIcon: Icon(Icons.spa),
           label: 'Wellness',
         ),
         BottomNavigationBarItem(

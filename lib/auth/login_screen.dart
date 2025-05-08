@@ -1,13 +1,10 @@
-// ignore_for_file: unused_field, deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:ghodacare/constants/app_constants.dart';
 import 'package:ghodacare/api/api_service.dart';
 import 'package:ghodacare/utils/shared_pref_util.dart';
-import 'package:ghodacare/utils/mock_auth_service.dart';
-import 'package:ghodacare/screens/home_screen.dart';
 import 'register_screen.dart';
 import 'forgot_password_screen.dart';
+import '../home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _apiService = ApiService(); // Keep for reference but don't use
+  final _apiService = ApiService();
   bool _isLoading = false;
   bool _rememberMe = false;
   bool _obscurePassword = true;
@@ -42,8 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      // Use MockAuthService instead of ApiService
-      final response = await MockAuthService.loginUser(
+      // Use ApiService for Firebase integration
+      final response = await _apiService.login(
         _emailController.text.trim(),
         _passwordController.text,
       );

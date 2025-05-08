@@ -67,7 +67,7 @@ class WellnessTip {
 }
 
 class WellnessTab extends StatefulWidget {
-  const WellnessTab({Key? key}) : super(key: key);
+  const WellnessTab({super.key});
 
   @override
   State<WellnessTab> createState() => _WellnessTabState();
@@ -98,101 +98,8 @@ class _WellnessTabState extends State<WellnessTab> {
         return;
       }
 
-      // If cache is empty, load mock data
-      _categories = [
-        WellnessCategory(
-          title: 'nutrition',
-          icon: Icons.restaurant,
-          color: Colors.green,
-          backgroundColor: Colors.green.withOpacity(0.1),
-          tips: [
-            WellnessTip(
-              title: 'Iodine-Rich Foods',
-              content:
-                  'Incorporate iodine-rich foods like seaweed, fish, and dairy products to support thyroid function. Iodine is essential for the production of thyroid hormones.',
-            ),
-            WellnessTip(
-              title: 'Selenium Sources',
-              content:
-                  'Include selenium-rich foods such as Brazil nuts, tuna, and eggs. Selenium helps convert T4 to the active T3 hormone and protects the thyroid from oxidative damage.',
-            ),
-            WellnessTip(
-              title: 'Zinc Benefits',
-              content:
-                  'Consume zinc-containing foods like oysters, beef, and pumpkin seeds. Zinc plays a crucial role in thyroid hormone metabolism.',
-            ),
-          ],
-        ),
-        WellnessCategory(
-          title: 'exercise',
-          icon: Icons.fitness_center,
-          color: Colors.orange,
-          backgroundColor: Colors.orange.withOpacity(0.1),
-          tips: [
-            WellnessTip(
-              title: 'Low-Impact Activities',
-              content:
-                  "Engage in low-impact exercises like walking, swimming, or yoga, especially if you're experiencing fatigue from thyroid issues.",
-            ),
-            WellnessTip(
-              title: 'Consistency Over Intensity',
-              content:
-                  'Focus on consistent, moderate exercise rather than intense workouts that might stress your system. Aim for 150 minutes of moderate activity per week.',
-            ),
-            WellnessTip(
-              title: 'Strength Training',
-              content:
-                  'Include gentle strength training twice a week to maintain muscle mass, which can be affected by thyroid disorders.',
-            ),
-          ],
-        ),
-        WellnessCategory(
-          title: 'stress',
-          icon: Icons.spa,
-          color: Colors.blue,
-          backgroundColor: Colors.blue.withOpacity(0.1),
-          tips: [
-            WellnessTip(
-              title: 'Stress Reduction Techniques',
-              content:
-                  'Practice stress-reduction techniques like deep breathing, progressive muscle relaxation, or guided imagery. Chronic stress can exacerbate thyroid symptoms.',
-            ),
-            WellnessTip(
-              title: 'Mindfulness Practice',
-              content:
-                  'Incorporate mindfulness meditation for 10-15 minutes daily to reduce stress hormones that can interfere with thyroid function.',
-            ),
-            WellnessTip(
-              title: 'Adequate Sleep',
-              content:
-                  'Prioritize 7-9 hours of quality sleep. Poor sleep can impact stress hormones and worsen thyroid symptoms.',
-            ),
-          ],
-        ),
-        WellnessCategory(
-          title: 'meditation',
-          icon: Icons.self_improvement,
-          color: Colors.purple,
-          backgroundColor: Colors.purple.withOpacity(0.1),
-          tips: [
-            WellnessTip(
-              title: 'Thyroid-Focused Meditation',
-              content:
-                  'Try a thyroid-focused meditation, visualizing healthy thyroid function and energy flowing through your neck area.',
-            ),
-            WellnessTip(
-              title: 'Morning Routine',
-              content:
-                  'Establish a 5-minute morning meditation routine to start your day with reduced stress and centered energy.',
-            ),
-            WellnessTip(
-              title: 'Body Scan Practice',
-              content:
-                  'Practice a body scan meditation to identify areas of tension and promote relaxation throughout your body.',
-            ),
-          ],
-        ),
-      ];
+      // Placeholder for Firebase integration
+      _categories = [];
 
       // Save to cache
       _saveToCache(_categories);

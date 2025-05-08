@@ -18,7 +18,7 @@ class _AddBloodworkScreenState extends State<AddBloodworkScreen> {
   final _apiService = ApiService();
 
   bool _isLoading = false;
-  DateTime _selectedDate = DateTime.now();
+  final DateTime _selectedDate = DateTime.now();
 
   // Thyroid test controllers
   final _tshController = TextEditingController();

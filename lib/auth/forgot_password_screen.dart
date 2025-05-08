@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ghodacare/constants/app_constants.dart';
-import 'package:ghodacare/utils/mock_auth_service.dart';
+import 'package:ghodacare/api/api_service.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -12,6 +12,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
+  final _apiService = ApiService();
   bool _isLoading = false;
   bool _isSuccess = false;
   String _errorMessage = '';
@@ -26,8 +27,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     });
 
     try {
-      // Use MockAuthService instead of ApiService
-      final response = await MockAuthService.forgotPassword(
+      // Use ApiService for Firebase integration
+      final response = await _apiService.forgotPassword(
         _emailController.text.trim(),
       );
 
