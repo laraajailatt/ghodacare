@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart'; // Import Firebase
 import 'package:ghodacare/constants/app_constants.dart';
 import 'package:ghodacare/screens/splash_screen.dart';
 import 'package:ghodacare/screens/onboarding_screen.dart';
@@ -15,9 +16,12 @@ import 'package:ghodacare/screens/wellness/wellness_screen.dart';
 import 'package:ghodacare/utils/shared_pref_util.dart';
 import 'package:ghodacare/providers/theme_provider.dart';
 import 'package:ghodacare/providers/language_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Authentication
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(); // Initialize Firebase
   runApp(const MyApp());
 }
 
@@ -90,33 +94,28 @@ class _InitialScreenState extends State<InitialScreen> {
   }
 
   Future<void> _checkInitialRoute() async {
-    // Wait for splash screen duration
     await Future.delayed(AppConstants.splashDuration);
 
     if (!mounted) return;
 
-    // Check login status and welcome screen status
-    final isLoggedIn = await SharedPrefUtil.isUserLoggedIn();
-    final hasSeenWelcome = await SharedPrefUtil.hasSeenWelcomeScreen();
+    final isLoggedIn = await _checkUserLoggedIn();
 
     if (!mounted) return;
 
     if (isLoggedIn) {
-      // User is logged in, go directly to home screen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const HomeScreen()),
       );
-    } else if (hasSeenWelcome) {
-      // User has seen welcome screen but not logged in, go to login screen
+    } else {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const LoginScreen()),
       );
-    } else {
-      // First time user, show onboarding
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const OnboardingScreen()),
-      );
     }
+  }
+
+  Future<bool> _checkUserLoggedIn() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    return currentUser != null;
   }
 
   @override
