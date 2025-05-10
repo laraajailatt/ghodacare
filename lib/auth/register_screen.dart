@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ghodacare/constants/app_constants.dart';
-import 'package:ghodacare/services/auth_service.dart';
+import 'package:ghodacare/auth/auth_service.dart';
 import 'package:ghodacare/utils/shared_pref_util.dart';
-import 'login_screen.dart';
-import 'home_screen.dart';
+import 'package:ghodacare/screens/home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

@@ -11,7 +11,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath 'com.google.gms:google-services:4.3.10'  // Add this line
+    classpath("com.google.gms:google-services:4.3.10")
   }
 }
 

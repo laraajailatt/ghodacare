@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ghodacare/constants/app_constants.dart';
 import 'package:ghodacare/api/api_service.dart';
 import 'package:ghodacare/models/symptom_model.dart';
-import 'package:ghodacare/screens/symptom/symptom_list_screen.dart';
-import 'package:ghodacare/screens/symptom/add_symptom_screen.dart';
+import 'package:ghodacare/symptom/symptom_list_screen.dart';
+import 'package:ghodacare/symptom/add_symptom_screen.dart';
 import 'package:intl/intl.dart';
 
 class SymptomTab extends StatefulWidget {

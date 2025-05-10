@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart'; // Import Firebase
 import 'package:ghodacare/constants/app_constants.dart';
 import 'package:ghodacare/screens/splash_screen.dart';
-import 'package:ghodacare/screens/onboarding_screen.dart';
 import 'package:ghodacare/screens/home_screen.dart';
 import 'package:ghodacare/screens/auth/login_screen.dart';
 import 'package:ghodacare/screens/bloodwork/add_bloodwork_screen.dart';
@@ -13,11 +12,9 @@ import 'package:ghodacare/screens/health/add_health_metrics_screen.dart';
 import 'package:ghodacare/screens/medications/medications_screen.dart';
 import 'package:ghodacare/screens/medications/add_medication_screen.dart';
 import 'package:ghodacare/screens/wellness/wellness_screen.dart';
-import 'package:ghodacare/utils/shared_pref_util.dart';
 import 'package:ghodacare/providers/theme_provider.dart';
 import 'package:ghodacare/providers/language_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Authentication
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

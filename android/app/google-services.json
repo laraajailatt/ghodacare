@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "82024579194",
+    "firebase_url": "https://ghodacare-default-rtdb.firebaseio.com",
+    "project_id": "ghodacare",
+    "storage_bucket": "ghodacare.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82024579194:android:86380d24ec60429f483bc3",
+        "android_client_info": {
+          "package_name": "com.example.ghodacare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9Q-8II16aiD4VG0H3-2OjoFlZ9HT2kvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82024579194:android:fc0d5abb2e5e8fa6483bc3",
+        "android_client_info": {
+          "package_name": "com.laraajailatt.ghodacare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9Q-8II16aiD4VG0H3-2OjoFlZ9HT2kvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

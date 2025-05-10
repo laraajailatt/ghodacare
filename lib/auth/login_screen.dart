@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ghodacare/constants/app_constants.dart';
-import 'package:ghodacare/services/auth_service.dart';
+import 'package:ghodacare/auth/auth_service.dart';
 import 'package:ghodacare/utils/shared_pref_util.dart';
-import 'home_screen.dart';
+import 'package:ghodacare/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   final AuthService _authService = AuthService();
   bool _isLoading = false;
-  bool _obscurePassword = true;
+  final bool _obscurePassword = true;
 
   @override
   void dispose() {
